@@ -23,9 +23,11 @@
 </table>
 @code {
     private List<Inventory>? inventories;
+    [Parameter]
+    public string? Search { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
-        inventories = (await ViewInvetoriesByNameUseCase.ExecuteAsync()).ToList();
+        inventories = (await ViewInvetoriesByNameUseCase.ExecuteAsync(Search??string.Empty)).ToList();
     }
 }
