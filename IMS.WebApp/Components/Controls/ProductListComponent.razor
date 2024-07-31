@@ -1,4 +1,4 @@
-﻿@inject IViewInventoriesByNameUseCase ViewInvetoriesByNameUseCase
+﻿@inject IViewProductsByNameUseCase ViewProductsByNameUseCase
 
 
 
@@ -13,22 +13,22 @@
         </tr>
     </thead>
     <tbody>
-        @if (inventories is not null && inventories.Count > 0)
+        @if (products is not null && products.Count > 0)
         {
-            foreach (var inv in inventories)
+            foreach (var Product in products)
             {
-                <InventoryListItemComponent Inventory="inv"/>
+                <ProductListItemComponent @rendermode="InteractiveServer" Product="Product"/>
             }
         }
     </tbody>
 </table>
 @code {
-    private List<Inventory>? inventories;
+    private List<Product>? products;
     [Parameter]
     public string? Search { get; set; }
 
     protected override async Task OnParametersSetAsync()
     {
-        inventories = (await ViewInvetoriesByNameUseCase.ExecuteAsync(Search??string.Empty)).ToList();
+        products = (await ViewProductsByNameUseCase.ExecuteAsync(Search??string.Empty)).ToList();
     }
 }
